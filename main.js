@@ -2,14 +2,45 @@
 
 const sections = document.querySelectorAll('.section');
 
-function goToSection(section, anim) {
-	gsap.to(window, {
-		scrollTo: { y: section, autoKill: false },
-		duration: 1
-	});
+const scrolling = {
+	enabled: true,
+	events: 'scroll,wheel,touchmove,pointermove'.split(','),
+	prevent: e => {
+		if (e.cancelable) e.preventDefault();
+	},
+	disable() {
+		if (scrolling.enabled) {
+			scrolling.enabled = false;
+			window.addEventListener('scroll', gsap.ticker.tick, { passive: true });
+			scrolling.events.forEach((e, i) =>
+				(i ? document : window).addEventListener(e, scrolling.prevent, {
+					passive: false
+				})
+			);
+		}
+	},
+	enable() {
+		if (!scrolling.enabled) {
+			scrolling.enabled = true;
+			window.removeEventListener('scroll', gsap.ticker.tick);
+			scrolling.events.forEach((e, i) =>
+				(i ? document : window).removeEventListener(e, scrolling.prevent)
+			);
+		}
+	}
+};
 
-	if (anim) {
-		anim.restart();
+function goToSection(section, anim, i) {
+	if (scrolling.enabled) {
+		// skip if a scroll tween is in progress
+		scrolling.disable();
+		gsap.to(window, {
+			scrollTo: { y: section, autoKill: false },
+			onComplete: scrolling.enable,
+			duration: 1
+		});
+
+		anim && anim.restart();
 	}
 }
 
@@ -50,7 +81,7 @@ sections.forEach(section => {
 		.from(section.querySelector('.old-design'), { y: 1000, opacity: 0 }, 0.3)
 		.from(section.querySelector('.carousel-background'), { opacity: 0 }, 0.9)
 		.from(section.querySelector('.tour'), { scale: 0 }, 0.6)
-		.to(section.querySelector('.reviews-title'), { y: 50, opacity: 1 }, 0.6)
+		.to(section.querySelector('.reviews-title'), { opacity: 1 }, 0.6)
 		.from(section.querySelector('.pic-1'), { scale: 0 }, 0.3)
 		.from(section.querySelector('.pic-2'), { scale: 0 }, 0.6)
 		.from(section.querySelector('.pic-3'), { scale: 0 }, 0.9)
@@ -65,7 +96,7 @@ sections.forEach(section => {
 		.from(section.querySelector('.gulliver .text'), { x: -50 }, 2)
 		.from(section.querySelector('.striky'), { opacity: 0 }, 2.3)
 		.from(section.querySelector('.striky .text'), { x: -50 }, 2.3)
-		.to(section.querySelector('.gallery-title'), { y: 50, opacity: 1 }, 0.6)
+		.to(section.querySelector('.gallery-title'), { opacity: 1 }, 0.6)
 		.from(section.querySelector('.gallery-1'), { x: 250, opacity: 0 }, 1.2)
 		.from(section.querySelector('.gallery-2'), { opacity: 0 }, 1.2)
 		.from(section.querySelector('.gallery-3'), { x: -250, opacity: 0 }, 1.2)
@@ -115,15 +146,196 @@ sections.forEach(section => {
 		)
 		.from(section.querySelector('.footer-text'), { y: 100 }, 1);
 
-	ScrollTrigger.create({
-		trigger: section,
-		onEnter: () => goToSection(section, intoAnim)
+	ScrollTrigger.matchMedia({
+		'(min-width:601px)': function () {
+			ScrollTrigger.create({
+				trigger: section,
+				start: 'top bottom-=1',
+				end: 'bottom top+=1',
+				scrub: 1,
+				markers: true,
+				onEnter: () => goToSection(section, intoAnim),
+				onEnterBack: () => goToSection(section)
+			});
+		}
 	});
 
-	ScrollTrigger.create({
-		trigger: section,
-		start: 'bottom bottom',
-		onEnterBack: () => goToSection(section)
+	ScrollTrigger.matchMedia({
+		'(min-height:1000px)': function () {
+			ScrollTrigger.create({
+				trigger: section,
+				start: 'top bottom-=300',
+				end: 'bottom top+=1',
+				scrub: 1,
+				onEnter: () => goToSection(section, intoAnim),
+				onEnterBack: () => goToSection(section)
+			});
+		}
+	});
+
+	ScrollTrigger.matchMedia({
+		'(max-width:600px)': function () {
+			TweenLite.set(section.querySelector('.about-page'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.about-h2'), { clearProps: 'all' });
+			TweenLite.set(section.querySelector('.image-left'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.image-left-picture'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.image-right'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.image-right-picture'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.about-text'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.about-text-1'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.about-p'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.top-row'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.bottom-row'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.left-line'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.right-line'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.middle-icon'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.box-left'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.old-design'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.carousel-background'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.tour'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.reviews-title'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.pic-1'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.pic-2'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.pic-3'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.pic-4'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.pic-5'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.pic-6'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.isabelle'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.villager'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.gator'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.gator .text'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.gulliver'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.gulliver .text'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.striky'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.striky .text'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.gallery-title'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.gallery-1'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.gallery-2'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.gallery-3'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.gallery-4'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.gallery-5'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.gallery-6'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.gallery-villager-2'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.gallery-villager-5'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.gallery-villager-1'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.gallery-villager-3'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.gallery-villager-4'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.gallery-villager-6'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.inner-box h1'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.inner-box p'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.dodo-left'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.dodo-right'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.flowers'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.tour-button'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelectorAll('.footer-socials a img'), {
+				clearProps: 'all'
+			});
+			TweenLite.set(section.querySelector('.footer-text'), {
+				clearProps: 'all'
+			});
+		}
 	});
 });
 
@@ -199,10 +411,37 @@ const carouselImages = document.querySelectorAll('.carousel-slide img');
 const prevBtn = document.querySelector('#prev');
 const nextBtn = document.querySelector('#next');
 
+const carouselContainer = document.querySelector('.carousel-container');
+
+const oldCarouselSlide = document.querySelector('.old-design-slide');
+const oldCarouselImages = document.querySelectorAll('.old-design-slide img');
+
 // Counter
 let counter = 1;
-const size = carouselImages[0].clientWidth;
+
+let oldCounter = 1;
+let slideId;
+
+let windowSize = window.innerWidth;
+let size;
+let oldSize;
+
+window.addEventListener('resize', function () {
+	if (window.innerHeight !== windowSize) {
+		size = carouselImages[0].offsetWidth;
+		oldSize = oldCarouselImages[0].clientWidth;
+		carouselSlide.style.transform = 'translateX(' + -size * counter + 'px)';
+		oldCarouselSlide.style.transform =
+			'translateX(' + -oldSize * oldCounter + 'px)';
+	}
+});
+
+size = carouselImages[0].offsetWidth;
 carouselSlide.style.transform = 'translateX(' + -size * counter + 'px)';
+
+oldSize = oldCarouselImages[0].clientWidth;
+oldCarouselSlide.style.transform =
+	'translateX(' + -oldSize * oldCounter + 'px)';
 
 // Button Listeners
 
@@ -234,15 +473,6 @@ carouselSlide.addEventListener('transitionend', () => {
 });
 
 // Old Design - Page 4
-
-const oldCarouselSlide = document.querySelector('.old-design-slide');
-const oldCarouselImages = document.querySelectorAll('.old-design-slide img');
-
-let oldCounter = 1;
-let slideIn;
-const oldSize = oldCarouselImages[0].clientWidth;
-oldCarouselSlide.style.transform =
-	'translateX(' + -oldSize * oldCounter + 'px)';
 
 const startSlide = () => {
 	slideId = setInterval(() => {
@@ -283,6 +513,22 @@ document.addEventListener('visibilitychange', function () {
 });
 
 startSlide();
+
+const tourBtn = document.querySelector('.tour');
+const formSection = document.querySelector('#book');
+
+let bookCoords = formSection.offsetTop;
+
+tourBtn.addEventListener('click', e => {
+	e.preventDefault();
+	gsap.to(window, {
+		duration: 1.5,
+		scrollTo: {
+			y: bookCoords,
+			ease: Linear.easeNone
+		}
+	});
+});
 
 // Reviews Page - Page 5
 

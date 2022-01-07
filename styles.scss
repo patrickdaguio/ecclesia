@@ -1,778 +1,1447 @@
 @import url('https://fonts.googleapis.com/css2?family=Bitter:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 
-@mixin pageSize () {
-    height: 100vh;
-    width: 100%;
+@mixin pageSize() {
+	height: 100vh;
+	width: 100%;
+}
+
+@mixin mQ($arg) {
+	@media screen and (max-width: $arg) {
+		@content;
+	}
 }
 
 @mixin titleAnim($dasharray, $anim) {
-    stroke-dasharray: $dasharray;
-    stroke-dashoffset: $dasharray;
-    animation: $anim;
+	stroke-dasharray: $dasharray;
+	stroke-dashoffset: $dasharray;
+	animation: $anim;
 }
 
 @mixin opacity($opacity, $anim) {
-    opacity: $opacity;
-    animation: $anim;
+	opacity: $opacity;
+	animation: $anim;
 }
 
 @mixin flex($display, $align, $justify) {
-    display: $display;
-    align-items: $align;
-    justify-content: $justify;
+	display: $display;
+	align-items: $align;
+	justify-content: $justify;
 }
 
 @mixin text($text-align, $color, $family, $size, $spacing) {
-    text-align: $text-align;
-    color: $color;
-    font-family: $family;
-    font-size: $size;
-    letter-spacing: $spacing;
+	text-align: $text-align;
+	color: $color;
+	font-family: $family;
+	font-size: $size;
+	letter-spacing: $spacing;
 }
 
-@mixin title () {
-    @include text(center, white,  'Bitter', 2.8em, 0.1em);
-    position: absolute;
-    top: 3%;
-    left: 50%;
-    transform: translate(-50%, -7%);
+@mixin title() {
+	@include text(center, white, 'Bitter', 2.8em, 0.1em);
+	opacity: 0;
+	margin-top: 1.5em;
+
+	@include mQ(1200px) {
+		margin-top: 0em;
+	}
+	@include mQ(900px) {
+		font-size: 2.3em;
+	}
+	@include mQ(600px) {
+		font-size: 2em;
+	}
 }
 
-// Reset 
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+// Reset
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
 }
 
 body {
-    overflow-x: hidden;
+	overflow-x: hidden;
 }
 
 video {
-    object-fit: cover;
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    z-index: -1;
-}
-
-#fp-nav ul li a span, 
-.fp-slidesNav ul li a span {
-    background: white !important;
-}
-
-#fp-nav {
-    position: absolute !important;
-    right: 5.5% !important;
-    top: 50% !important;
-    transform: translate(-5.5%, -50%);
+	object-fit: cover;
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	z-index: -1;
 }
 
 // Landing Page (Page 1)
 .landing-page {
-    @include pageSize();
-
-    .content {
-        position: relative;
-        text-align: center;
-        z-index: 1;
-        height: 100vh;
-        #logo {
-            margin: 4.1em;
-            animation: fill 0.3s ease forwards 1.6s;
-            path {
-                &:nth-child(1) {
-                    @include titleAnim(362, line-anim 0.6s ease forwards);
-                }
-                &:nth-child(2) {
-                    @include titleAnim(230, line-anim 0.6s ease forwards 0.1s);
-                }
-                &:nth-child(3) {
-                    @include titleAnim(230, line-anim 0.6s ease forwards 0.3s);
-                }
-                &:nth-child(4) {
-                    @include titleAnim(211, line-anim 0.6s ease forwards 0.5s);
-                }
-                &:nth-child(5) {
-                    @include titleAnim(302, line-anim 0.6s ease forwards 0.7s);
-                }
-                &:nth-child(6) {
-                    @include titleAnim(267, line-anim 0.6s ease forwards 0.9s);
-                }
-                &:nth-child(7) {
-                    @include titleAnim(139, line-anim 0.6s ease forwards 1.1s);
-                }
-                &:nth-child(8) {
-                    @include titleAnim(283, line-anim 0.6s ease forwards 1.3s);
-                }
-            }
-        } 
-        .socials {
-            display: flex;
-            flex-direction: column;
-            position: absolute;
-            right: 5%;
-            top: 5%;
-            transform: translate(-5%, 5%);
-            a {
-                margin: 0.3em;
-                .twitter {
-                    @include opacity(0, opacity 0.4s ease forwards 1.8s);
-                }
-                .insta {
-                    @include opacity(0, opacity 0.4s ease forwards 2.1s);
-                }
-                .pinterest {
-                    @include opacity(0, opacity 0.4s ease forwards 2.4s);
-                }
-            }
-        }
-        h3 {
-            position: absolute;
-            color: white;
-            font-size: 4em;
-            top: 45%;
-            left: 50%;
-            transform: translate(-50%, -45%);
-            opacity: 0;
-            letter-spacing: 0.1em;
-            width: 100%;
-            animation: appearUp 1s ease forwards 1.8s;
-        }
-    }
+	@include pageSize();
+	@include mQ(600px) {
+		background-color: rgba(42, 34, 23, 0.6);
+	}
+	.content {
+		position: relative;
+		text-align: center;
+		z-index: 1;
+		height: 100vh;
+		#logo {
+			margin: 4.1em;
+			animation: fill 0.3s ease forwards 1.6s;
+			@include mQ(900px) {
+				width: 280px;
+			}
+			@include mQ(600px) {
+				width: 250px;
+			}
+			@include mQ(600px) {
+				width: 210px;
+			}
+			path {
+				&:nth-child(1) {
+					@include titleAnim(362, line-anim 0.6s ease forwards);
+				}
+				&:nth-child(2) {
+					@include titleAnim(230, line-anim 0.6s ease forwards 0.1s);
+				}
+				&:nth-child(3) {
+					@include titleAnim(230, line-anim 0.6s ease forwards 0.3s);
+				}
+				&:nth-child(4) {
+					@include titleAnim(211, line-anim 0.6s ease forwards 0.5s);
+				}
+				&:nth-child(5) {
+					@include titleAnim(302, line-anim 0.6s ease forwards 0.7s);
+				}
+				&:nth-child(6) {
+					@include titleAnim(267, line-anim 0.6s ease forwards 0.9s);
+				}
+				&:nth-child(7) {
+					@include titleAnim(139, line-anim 0.6s ease forwards 1.1s);
+				}
+				&:nth-child(8) {
+					@include titleAnim(283, line-anim 0.6s ease forwards 1.3s);
+				}
+			}
+		}
+		.socials {
+			display: flex;
+			flex-direction: column;
+			position: absolute;
+			right: 5%;
+			top: 5%;
+			transform: translate(-5%, 5%);
+			@include mQ(900px) {
+				bottom: 5%;
+				top: auto;
+				display: block;
+				left: 50%;
+				transform: translate(-50%, -5%);
+			}
+			a {
+				margin: 0.3em;
+				.twitter {
+					@include opacity(0, opacity 0.4s ease forwards 1.8s);
+					margin-top: 0em;
+				}
+				.insta {
+					@include opacity(0, opacity 0.4s ease forwards 2.1s);
+				}
+				.pinterest {
+					@include opacity(0, opacity 0.4s ease forwards 2.4s);
+				}
+				img {
+					@include mQ(900px) {
+						margin: 0.4em;
+					}
+				}
+			}
+		}
+		h3 {
+			position: absolute;
+			color: white;
+			font-size: 4em;
+			top: 45%;
+			left: 50%;
+			transform: translate(-50%, -45%);
+			opacity: 0;
+			padding: 0.5em;
+			letter-spacing: 0.1em;
+			width: 100%;
+			animation: appearUp 1s ease forwards 1.8s;
+			@include mQ(1200px) {
+				font-size: 3em;
+			}
+			@include mQ(900px) {
+				font-size: 2.6em;
+			}
+			@include mQ(600px) {
+				font-size: 2.7em;
+			}
+		}
+	}
 }
 // About Page (Page 2)
 .about-page {
-    @include pageSize();
-    @include flex(flex, center, center);
-    .content {
-        .about-h2 {
-            @include text(center, white,  'Bitter', 2.3em, 0.1em);
-        }
-        .about-p {
-            @include text(center, white,  'Bitter', 1.3em, 0.1em);
-            width: 60%;
-            margin: auto;
-            margin-top: 2em;
-        }
-        h3 {
-            @include text(center, white,  'Permanent Marker', 2.5em, 0.15em);
-            padding: 0.3em;
-        }
-        .about-middle {
-            @include flex(flex, center, center);
-            position: relative;
-            margin-top: 2em;
-            .image-left, .image-right {
-                margin: 0em 2em;
-                p {
-                    @include text(center, white,  'Bitter', 1.5em, 0.15em);
-                }
-            }
-            .about-box {
-                @include flex(flex, center, center);
-                height: 429px;
-                width: 701px;
-                background-color: white;
-                img {
-                    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.6);
-                    margin-bottom: 0.1em;
-                }
-            }
-        }
-    }
+	@include pageSize();
+	@include flex(flex, center, center);
+	@include mQ(1200px) {
+		height: auto;
+		padding: 3.5em 0em 7.5em 0em;
+	}
+	background-color: rgba(42, 34, 23, 0.6);
+	.content {
+		padding: 0em 2em;
+		@include mQ(450px) {
+			padding: 0em 1.25em;
+		}
+		.about-h2 {
+			@include text(center, white, 'Bitter', 2.2em, 0.1em);
+			@include mQ(900px) {
+				font-size: 1.6em;
+			}
+			@include mQ(600px) {
+				font-size: 1.4em;
+			}
+			@include mQ(900px) {
+				font-size: 2em;
+			}
+			@include mQ(450px) {
+				font-size: 1.7em;
+			}
+		}
+		.about-p {
+			@include text(center, white, 'Bitter', 1.2em, 0.1em);
+			width: 60%;
+			margin: auto;
+			margin-top: 2.5em;
+			@include mQ(1200px) {
+				width: 80%;
+				margin-bottom: 3.5em;
+			}
+			@include mQ(900px) {
+				font-size: 1em;
+			}
+			@include mQ(600px) {
+				font-size: 0.9em;
+				width: 100%;
+			}
+		}
+		h3 {
+			@include text(center, white, 'Permanent Marker', 1.85em, 0.15em);
+			padding: 0.3em;
+			@include mQ(900px) {
+				font-size: 1.5em;
+			}
+			@include mQ(600px) {
+				font-size: 1.35em;
+			}
+		}
+		.about-middle {
+			@include flex(flex, center, center);
+			@include mQ(1200px) {
+				flex-direction: column;
+			}
+			position: relative;
+			gap: 5%;
+			margin-top: 2em;
+			.image-left {
+				@include mQ(1200px) {
+					margin-bottom: 3em;
+				}
+				@include mQ(600px) {
+					margin-bottom: 2em;
+				}
+			}
+			.about-box {
+				@include flex(flex, center, center);
+				height: 329px;
+				width: 500px;
+				background-color: white;
+				padding: 1em;
+				@include mQ(900px) {
+					height: 280px;
+					width: 400px;
+				}
+				@include mQ(600px) {
+					height: 250px;
+					width: 350px;
+				}
+				@include mQ(450px) {
+					padding: 0.75em;
+					height: 220px;
+					width: 310px;
+				}
+				img {
+					box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.6);
+					margin-bottom: 0.1em;
+					width: 100%;
+					height: 100%;
+				}
+			}
+		}
+	}
 }
 
 .hover-page {
-    @include flex(flex, center, center);
-    @include pageSize();
-    flex-direction: column;
-    background-color: rgba(42,34,23,0.6);
-    overflow: hidden;
-    .top-row, .bottom-row {
-        @include flex(flex, center, center);
-        .hover-box {
-            @include flex(flex, center, center);
-            height: 367px;
-            width: 701px;
-            background-color: white;
-            margin: 2em 2em;
-            .overlay {
-                position: relative;
-                width: 92.6%;
-                height: 86.9%;
-                background-color: rgba(0, 0, 0, 0.6);
-                box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.6);
-                img {
-                    margin-bottom: 0.1em;
-                }
-                .hover-middle {
-                    position: absolute;
-                    top: 0;
-                    bottom: 0;
-                    left: 0;
-                    right: 0;
-                    height: 100%;
-                    width: 100%;
-                    opacity: 0;
-                    transition: .2s ease-in;
-                    background-color: rgba(0, 0, 0, 0.5);
-                    button {
-                    position: absolute;
-                    transition: .5s ease;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    @include text(center, white,  'Bitter', 1.2em, 0.1em);
-                    background-color: rgba(0, 0, 0, 0.75);
-                    border: none;
-                    outline: none;
-                    padding: 0.5em 1em;
-                    border-radius: 10px;
-                    cursor: pointer;
-                    }
-                }
-                &:hover .hover-middle {
-                    opacity: 1;
-                }
-            }
-        }
-        .box-open {
-            @include flex(flex, center, center);
-            flex-direction: column;
-            width: 40%;
-            display: none;
-            h1 {
-                @include text(left, white,  'Permanent Marker', 3em, 0.1em);
-            }
-            p {
-                @include text(left, white,  'Bitter', 1.6em, 0.1em);
-                width: 80%;
-                margin: auto;
-                margin: 2em 0em;
-            }
-            button {
-                @include text(center, black,  'Bitter', 1.2em, 0.1em);
-                border: none;
-                outline: none;
-                padding: 0.5em 1.5em;
-                border-radius: 10px;
-                cursor: pointer;
-            }
-        }
-    }
-    .gallery-middle {
-        @include flex(flex, center, center);
-        div {
-            width: 560px;
-            height: 1px;
-            background-color: white;
-        }
-        .middle-icon {
-            margin: 0em 4em;
-        }
-    }
+	@include flex(flex, center, center);
+	@include pageSize();
+	flex-direction: column;
+	background-color: rgba(42, 34, 23, 0.6);
+	overflow: hidden;
+	@include mQ(1200px) {
+		height: auto;
+		padding: 3.5em 0em 7.5em 0em;
+	}
+	@include mQ(450px) {
+		padding: 3.5em 1.25em 7.5em 1.25em;
+	}
+
+	.top-row,
+	.bottom-row {
+		@include flex(flex, center, center);
+		@include mQ(1200px) {
+			flex-direction: column;
+		}
+		.hover-box {
+			@include flex(flex, center, center);
+			height: 270px;
+			width: 500px;
+			background-color: white;
+			margin: 2em 2em;
+			padding: 1em;
+			@include mQ(900px) {
+				height: 230px;
+				width: 400px;
+			}
+			@include mQ(600px) {
+				height: 220px;
+				width: 350px;
+			}
+			@include mQ(450px) {
+				padding: 0.75em;
+				height: 190px;
+				width: 320px;
+				margin: 1.5em 0em;
+			}
+			.overlay {
+				position: relative;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0, 0, 0, 0.6);
+				box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.6);
+				img {
+					margin-bottom: 0.1em;
+					width: 100%;
+					height: 100%;
+				}
+				.hover-middle {
+					position: absolute;
+					top: 0;
+					bottom: 0;
+					left: 0;
+					right: 0;
+					height: 100%;
+					width: 100%;
+					opacity: 0;
+					transition: 0.2s ease-in;
+					background-color: rgba(0, 0, 0, 0.5);
+					button {
+						position: absolute;
+						transition: 0.5s ease;
+						top: 50%;
+						left: 50%;
+						transform: translate(-50%, -50%);
+						@include text(center, white, 'Bitter', 1.2em, 0.1em);
+						background-color: rgba(0, 0, 0, 0.75);
+						border: none;
+						outline: none;
+						padding: 0.5em 1em;
+						border-radius: 10px;
+						cursor: pointer;
+						@include mQ(600px) {
+							font-size: 1em;
+						}
+					}
+				}
+				&:hover .hover-middle {
+					opacity: 1;
+				}
+			}
+		}
+		.box-open {
+			@include flex(flex, center, center);
+			flex-direction: column;
+			width: 500px;
+			display: none;
+			margin: 2em;
+			@include mQ(450px) {
+				width: 350px;
+				margin: 2em 0em;
+			}
+			h1 {
+				@include text(left, white, 'Permanent Marker', 2.25em, 0.1em);
+				@include mQ(1200px) {
+					text-align: center;
+				}
+				@include mQ(900px) {
+					font-size: 1.9em;
+				}
+				@include mQ(600px) {
+					font-size: 1.6em;
+				}
+				@include mQ(450px) {
+					font-size: 1.4em;
+				}
+			}
+			p {
+				@include text(left, white, 'Bitter', 1.3em, 0.1em);
+				width: 80%;
+				margin: auto;
+				margin: 2em 0em;
+				@include mQ(1200px) {
+					text-align: center;
+				}
+				@include mQ(900px) {
+					margin: 1.75em 0em;
+					font-size: 1.15em;
+				}
+				@include mQ(600px) {
+					font-size: 1.05em;
+					width: 70%;
+				}
+				@include mQ(450px) {
+					font-size: 0.9em;
+					width: 100%;
+				}
+			}
+			button {
+				@include text(center, black, 'Bitter', 1.1em, 0.1em);
+				border: none;
+				outline: none;
+				padding: 0.5em 1.5em;
+				border-radius: 10px;
+				cursor: pointer;
+				@include mQ(600px) {
+					font-size: 1em;
+				}
+				@include mQ(450px) {
+					font-size: 1em;
+				}
+			}
+		}
+	}
+	.gallery-middle {
+		@include flex(flex, center, center);
+		div {
+			width: 400px;
+			height: 1px;
+			background-color: white;
+			@include mQ(900px) {
+				width: 220px;
+			}
+			@include mQ(600px) {
+				width: 150px;
+			}
+			@include mQ(450px) {
+				width: 120px;
+			}
+		}
+		.middle-icon {
+			margin: 0em 4em;
+			@include mQ(900px) {
+				width: 24px;
+				margin: 0em 2em;
+			}
+			@include mQ(450px) {
+				width: 20px;
+				margin: 0em 1.5em;
+			}
+		}
+	}
 }
 
 .house-page {
-    @include pageSize();
-    @include flex(flex, center, center);
-    background-color: rgba(42,34,23,0.6);
-    overflow: hidden;
-    .content {
-        @include flex(flex, center, center);
-        position: relative;
-        .box-left {
-            @include flex(flex, center, center);
-            align-self: start;
-            height: 300px;
-            width: 500px;
-            background-color: #8DABCF;
-            border-top-left-radius: 20px;
-            border-bottom-left-radius: 20px;
-            .description-box {
-                height: 250px;
-                width: 450px;
-                background-color: white;
-                border-radius: 20px;
-                box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.7);
-                @include flex(flex, center, center);
-                flex-direction: column;
-                h3 {
-                    @include text(center, #8DABCF,  'Permanent Marker', 2.2em, 0.1em);
-                }
-                .p-div {
-                    margin-top: 1em;
-                    p {
-                        @include text(center, #8DABCF,  'Bitter', 1.5em, 0.1em);
-                        width: 70%;
-                        margin: auto;
-                    }
-                }
-            }
-        }
-        .carousel-background {
-            @include flex(flex, center, center);
-            height: 594px;
-            width: 850px;
-            background-color: white;
-            box-shadow: -4px 4px 6px rgba(0, 0, 0, 0.4);
-            position: relative;
-            padding: 0px 1.3em;
-            .carousel-container {
-                height: 93%;
-                width: 100%;
-                box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.6);
-                overflow: hidden;
-                position: relative;
-                .carousel-slide {
-                    display: flex;
-                    width: 100%;
-                    height: 100%;
-                }
-                #prev {
-                    position: absolute;
-                    top: 50%;
-                    font-size: 65px;
-                    color: white;
-                    cursor: pointer;
-                    left: 2%;
-                    z-index: 10;
-                }
-                #next {
-                    position: absolute;
-                    top: 50%;
-                    font-size: 65px;
-                    color: white;
-                    cursor: pointer;
-                    right: 2%;
-                    z-index: 10;
-                }
-            }
-            a {
-                position: absolute;
-                bottom: -5%;
-                transform: translate(0%, 5%);
-                .tour {
-                    @include text(center, #8DABCF,  'Bitter', 2.2em, 0.1em);
-                    outline: none;
-                    border: none;
-                    border-radius: 40px;
-                    padding: 0.4em 0.6em;
-                    font-weight: bold;
-                    text-transform: uppercase;
-                    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-                    cursor: pointer;
-                    &:hover {
-                        text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
-                    }
-                }
-            }
-        }
-        .old-design {
-            @include flex(flex, center, center);
-            position: absolute;
-            bottom: -3%;
-            left: 5%;
-            transform: translate(-5%, 3%);
-            height: 290px;
-            width: 400px;
-            background-color: white;
-            border-radius: 25px;
-            padding: 0px 1.3em;
-            .old-design-carousel {
-                height: 87%;
-                width: 100%;
-                overflow: hidden;
-                box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.6);
-                .old-design-slide {
-                    display: flex;
-                    width: 100%;
-                    height: 100%;
-                }
-            }
-            .old-design-box {
-                position: absolute;
-                bottom: -8%;
-                transform: translate(0%, 8%);
-                z-index: 10;
-                .banner {
-                    @include flex(flex, center, center);
-                    background-color: #A36AA1;
-                    width: 215px;
-                    height: 55px;
-                    @include text(center, white,  'Bitter', 1.4em, 0.1em);
-                }
-            }
-        }
-    }
+	@include pageSize();
+	@include flex(flex, center, center);
+	background-color: rgba(42, 34, 23, 0.6);
+	overflow: hidden;
+	@include mQ(1200px) {
+		height: auto;
+		padding: 3.5em 0em 7.5em 0em;
+	}
+	@include mQ(600px) {
+		height: 100vh;
+	}
+	@include mQ(450px) {
+		height: auto;
+		padding: 3.5em 1.25em 7.5em 1.25em;
+	}
+	.content {
+		@include flex(flex, center, center);
+		position: relative;
+		@include mQ(1200px) {
+			flex-direction: column;
+		}
+		.box-left {
+			@include flex(flex, center, center);
+			align-self: start;
+			height: 225px;
+			width: 400px;
+			background-color: #8dabcf;
+			border-top-left-radius: 20px;
+			border-bottom-left-radius: 20px;
+			padding: 1.5em;
+			@include mQ(1200px) {
+				align-self: center;
+				border-top-right-radius: 20px;
+				border-bottom-right-radius: 20px;
+			}
+			@include mQ(900px) {
+				height: 180px;
+				width: 290px;
+				padding: 0.9em;
+				border-radius: 16px;
+			}
+			@include mQ(600px) {
+				height: 160px;
+				width: 250px;
+				padding: 0.75em;
+				border-radius: 12px;
+			}
+			@include mQ(450px) {
+				height: 150px;
+				width: 230px;
+				padding: 0.75em;
+				border-radius: 10px;
+			}
+			.description-box {
+				height: 100%;
+				width: 100%;
+				background-color: white;
+				border-radius: 20px;
+				box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.7);
+				@include flex(flex, center, center);
+				flex-direction: column;
+				@include mQ(900px) {
+					border-radius: 16px;
+				}
+				@include mQ(600px) {
+					border-radius: 12px;
+				}
+				@include mQ(450px) {
+					border-radius: 10px;
+				}
+				h3 {
+					@include text(center, #8dabcf, 'Bitter', 1.8em, 0.1em);
+					@include mQ(900px) {
+						font-size: 1.4em;
+					}
+					@include mQ(600px) {
+						font-size: 1.2em;
+					}
+					@include mQ(450px) {
+						font-size: 1.1em;
+					}
+				}
+				.p-div {
+					margin-top: 1em;
+					@include mQ(450px) {
+						margin-top: 0.75em;
+					}
+					p {
+						@include text(center, #8dabcf, 'Bitter', 1.25em, 0.1em);
+						width: 70%;
+						margin: auto;
+						@include mQ(900px) {
+							font-size: 1em;
+							width: 100%;
+						}
+						@include mQ(600px) {
+							font-size: 0.9em;
+						}
+						@include mQ(450px) {
+							font-size: 0.85em;
+						}
+					}
+				}
+			}
+		}
+		.carousel-background {
+			@include flex(flex, center, center);
+			height: 450px;
+			width: 650px;
+			background-color: white;
+			box-shadow: -4px 4px 6px rgba(0, 0, 0, 0.4);
+			position: relative;
+			padding: 1.3em;
+			@include mQ(1200px) {
+				margin: 3.5em 0em;
+			}
+			@include mQ(900px) {
+				height: 300px;
+				width: 450px;
+				margin: 2.5em;
+				padding: 0.9em;
+			}
+			@include mQ(600px) {
+				height: 270px;
+				width: 400px;
+				padding: 0.75em;
+			}
+			@include mQ(450px) {
+				height: 230px;
+				padding: 0.75em;
+				width: 310px;
+			}
+			.carousel-container {
+				max-width: 100%;
+				max-height: 100%;
+				box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.6);
+				overflow: hidden;
+				position: relative;
+				.carousel-slide {
+					display: flex;
+					width: 100%;
+					height: 100%;
+					img {
+						max-width: 100%;
+						max-height: 100%;
+					}
+				}
+				#prev {
+					position: absolute;
+					top: 50%;
+					font-size: 65px;
+					color: white;
+					cursor: pointer;
+					left: 2%;
+					z-index: 10;
+					@include mQ(900px) {
+						font-size: 40px;
+					}
+				}
+				#next {
+					position: absolute;
+					top: 50%;
+					font-size: 65px;
+					color: white;
+					cursor: pointer;
+					right: 2%;
+					z-index: 10;
+					@include mQ(900px) {
+						font-size: 40px;
+					}
+				}
+			}
+			a {
+				position: absolute;
+				bottom: -5%;
+				transform: translate(0%, 5%);
+				.tour {
+					@include text(center, #8dabcf, 'Bitter', 1.6em, 0.1em);
+					outline: none;
+					border: none;
+					border-radius: 40px;
+					padding: 0.3em 0.75em;
+					font-weight: bold;
+					text-transform: uppercase;
+					text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
+					cursor: pointer;
+					transition: 0.3s;
+					&:hover {
+						text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
+					}
+					@include mQ(900px) {
+						font-size: 1.2em;
+					}
+					@include mQ(600px) {
+						font-size: 1.1em;
+					}
+				}
+			}
+		}
+		.old-design {
+			@include flex(flex, center, center);
+			position: absolute;
+			bottom: -8%;
+			left: 4%;
+			transform: translate(-4%, 8%);
+			height: 250px;
+			width: 350px;
+			background-color: white;
+			border-radius: 25px;
+			padding: 1em 1.3em;
+			@include mQ(1200px) {
+				position: relative;
+			}
+			@include mQ(900px) {
+				width: 260px;
+				height: 175px;
+				border-radius: 16px;
+				padding: 0.9em;
+			}
+			@include mQ(600px) {
+				width: 240px;
+				height: 160px;
+				border-radius: 12px;
+				padding: 0.75em;
+			}
+			.old-design-carousel {
+				height: 100%;
+				width: 100%;
+				overflow: hidden;
+				box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.6);
+				.old-design-slide {
+					display: flex;
+					width: 100%;
+					height: 100%;
+					img {
+						width: 100%;
+						height: 100%;
+					}
+				}
+			}
+			.old-design-box {
+				position: absolute;
+				bottom: -8%;
+				transform: translate(0%, 8%);
+				z-index: 10;
+				.banner {
+					@include flex(flex, center, center);
+					background-color: #a36aa1;
+					width: 175px;
+					height: 47px;
+					@include text(center, white, 'Bitter', 1.1em, 0.1em);
+					@include mQ(900px) {
+						font-size: 0.9em;
+						width: 140px;
+						height: 36px;
+					}
+					@include mQ(600px) {
+						font-size: 0.8em;
+						width: 130px;
+						height: 30px;
+					}
+				}
+			}
+		}
+	}
 }
 
 .reviews-page {
-    position: relative;
-    @include pageSize();
-    background-color: rgba(42,34,23,0.6);
-    overflow: hidden;
-    .reviews-title {
-        @include title;
-        opacity: 0;
-    }
-    .picture-box {
-        height: 260px;
-        width: 345px;
-        background-color: white;
-        @include flex(flex, center, center);
-        img {
-            width: 90%;
-            box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.6);
-        }
-    }
-    .isabelle {
-        position: absolute;
-        left: 21.5%;
-        top: 16%;
-        transform: translate(-21.5%, -16%);
-        z-index: 2;
-    }
-    .villager {
-        position: absolute;
-        right: 15%;
-        top: 20.5%;
-        transform: translate(-15%, -20.5%);
-        z-index: 2;
-    }
-    .pic-1 {
-        position: absolute;
-        left: 27%;
-        top: 26%;
-        transform: translate(-27%, -26%);
-        transform: rotate(8.5deg);
-    }
-    .pic-2 {
-        position: absolute;
-        left: 22%;
-        top: 35%;
-        transform: translate(-22%, -35%);
-        transform: rotate(-25deg);
-    }
-    .pic-3 {
-        position: absolute;
-        left: 30%;
-        top: 47%;
-        transform: translate(-30%, -47%);
-    }
-    .pic-4 {
-        position: absolute;
-        right: 27%;
-        top: 26%;
-        transform: translate(-27%, -26%);
-        transform: rotate(-8.5deg);
-    }
-    .pic-5 {
-        position: absolute;
-        right: 22%;
-        top: 35%;
-        transform: translate(-22%, -35%);
-        transform: rotate(25deg);
-    }
-    .pic-6 {
-        position: absolute;
-        right: 19%;
-        top: 47%;
-        transform: translate(-30%, -47%);
-    }
-    .icons {
-        @include flex(flex, center, center);
-        position: absolute;
-        bottom: 7%;
-        left: 58%;
-        transform: translate(-58%, -7%);
-    }
-    .gator, .striky, .gulliver {
-        @include flex(flex, center, center);
-        .big-circle {
-            @include flex(flex, center, center);
-            height: 150px;
-            width: 150px;
-            background-color: white;
-            border-radius: 50%;
-            .small-circle {
-                height: 125px;
-                width: 125px;
-                background-color: #5DB4F9;
-                border-radius: 50%;
-                img {
-                    width: 90%;
-                    margin: 0em 0em 0.8em 0.2em;
-                }
-            }
-        }
-        .text {
-            p {
-                @include text(left, white,  'Bitter', 1.2em, 0.1em);
-                width: 240px;
-                margin: 0em 1em 0em 1.2em;
-            }
-            .quote {
-                font-weight: bold;
-                margin-top: 0.5em;
-            }
-        }
-    }
-    .gulliver {
-        .big-circle {
-            .small-circle {
-                background-color: #BB580F;
-            }
-        }
-    }
-    .striky {
-        .big-circle {
-            .small-circle {
-                background-color: #F0938D;
-            }
-        }
-    }
+	position: relative;
+	@include pageSize();
+	background-color: rgba(42, 34, 23, 0.6);
+	overflow: hidden;
+	@include mQ(1200px) {
+		height: auto;
+		padding: 3.5em 0em 7.5em 0em;
+	}
+	@include mQ(450px) {
+		padding: 3.5em 1.25em 7.5em 1.25em;
+	}
+	.reviews-title {
+		@include title;
+		opacity: 0;
+		@include mQ(1200px) {
+			margin-bottom: 3em;
+		}
+		@include mQ(600px) {
+			opacity: 1;
+		}
+		@include mQ(450px) {
+			margin-bottom: 4em;
+		}
+	}
+	.picture-box {
+		height: 225px;
+		width: 310px;
+		padding: 1em;
+		background-color: white;
+		@include flex(flex, center, center);
+		@include mQ(900px) {
+			height: 190px;
+			width: 270px;
+		}
+		@include mQ(600px) {
+			height: 170px;
+			width: 230px;
+			padding: 0.9em;
+		}
+		@include mQ(450px) {
+			height: 160px;
+			width: 210px;
+			padding: 0.75em;
+		}
+		img {
+			width: 100%;
+			height: 100%;
+			box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.6);
+		}
+	}
+	.reviews-container {
+		@include flex(flex, center, center);
+		height: 70%;
+		width: 100%;
+		gap: 8%;
+		@include mQ(1200px) {
+			flex-direction: column;
+		}
+		.reviews-box-left {
+			@include mQ(1200px) {
+				margin-bottom: 6em;
+			}
+			@include mQ(600px) {
+				margin-bottom: 4.5em;
+			}
+			@include mQ(450px) {
+				margin-bottom: 3em;
+			}
+		}
+		.reviews-box-left,
+		.reviews-box-right {
+			display: grid;
+			grid-template-columns: repeat(12, 1fr);
+			position: relative;
+			grid-template-rows: repeat(2, 0.5fr);
+		}
+	}
+	.isabelle {
+		height: 230px;
+		width: 120px;
+		z-index: 4;
+		grid-column: 1/ -1;
+		grid-row: 1/-1;
+		margin-left: 5%;
+		margin-top: -17%;
+		@include mQ(900px) {
+			height: 190px;
+			width: 100px;
+			margin-left: 8%;
+			margin-top: -19%;
+		}
+		@include mQ(600px) {
+			height: 160px;
+			width: 80px;
+			margin-left: 8%;
+			margin-top: -17%;
+		}
+		@include mQ(600px) {
+			height: 145px;
+			width: 70px;
+			margin-left: 5%;
+			margin-top: -19%;
+		}
+	}
+	.villager {
+		height: 230px;
+		width: 165px;
+		z-index: 4;
+		grid-column: 7 / -1;
+		margin-left: 50%;
+		grid-row: 1/-1;
+		margin-top: -30%;
+		@include mQ(900px) {
+			height: 190px;
+			width: 135px;
+			margin-top: -45%;
+			margin-left: 60%;
+		}
+		@include mQ(600px) {
+			height: 160px;
+			width: 120px;
+			margin-top: -40%;
+			margin-left: 60%;
+		}
+		@include mQ(450px) {
+			height: 145px;
+			width: 100px;
+			margin-top: -40%;
+			margin-left: 45%;
+		}
+	}
+	.pic-1 {
+		grid-column: 5/ -1;
+		grid-row: 1;
+		z-index: 1;
+		transform: rotate(8.5deg);
+		@include mQ(1200px) {
+			margin-left: -11%;
+		}
+	}
+	.pic-2 {
+		grid-column: 2 / -1;
+		grid-row: 2;
+		z-index: 2;
+		transform: rotate(-25deg);
+		margin-top: -35%;
+		margin-left: 8%;
+		@include mQ(1200px) {
+			margin-top: -40%;
+			margin-left: 0%;
+		}
+	}
+	.pic-3 {
+		grid-column: 4 / -1;
+		grid-row: 2;
+		z-index: 3;
+		margin-top: -45%;
+		@include mQ(1200px) {
+			grid-column: 3 / -1;
+		}
+	}
+	.pic-4 {
+		grid-column: 1/ -1;
+		grid-row: 1;
+		z-index: 1;
+		transform: rotate(-8.5deg);
+		margin-left: -3%;
+	}
+	.pic-5 {
+		grid-column: 3 / -1;
+		grid-row: 2;
+		z-index: 2;
+		transform: rotate(25deg);
+		margin-top: -49%;
+		margin-left: 4%;
+	}
+	.pic-6 {
+		grid-column: 2 / -1;
+		grid-row: 2;
+		z-index: 3;
+		margin-top: -46%;
+	}
+	.icons {
+		@include flex(flex, center, center);
+		@include mQ(1200px) {
+			flex-direction: column;
+			margin-top: 2.5em;
+		}
+	}
+	.gator,
+	.striky,
+	.gulliver {
+		margin-left: 1em;
+		@include mQ(1200px) {
+			margin-left: 0em;
+			margin-bottom: 2em;
+		}
+		@include mQ(1200px) {
+			margin-bottom: 1em;
+		}
+		@include flex(flex, center, center);
+		.big-circle {
+			@include flex(flex, center, center);
+			height: 100px;
+			width: 100px;
+			background-color: white;
+			border-radius: 50%;
+			@include mQ(900px) {
+				height: 90px;
+				width: 90px;
+			}
+			@include mQ(600px) {
+				height: 80px;
+				width: 80px;
+			}
+			.small-circle {
+				height: 85px;
+				width: 85px;
+				background-color: #5db4f9;
+				border-radius: 50%;
+				@include flex(flex, center, center);
+				@include mQ(900px) {
+					height: 75px;
+					width: 75px;
+				}
+				@include mQ(600px) {
+					height: 65px;
+					width: 65px;
+				}
+				img {
+					width: 75%;
+					margin: 0em 0.5em 0.5em 0.5em;
+				}
+			}
+		}
+		.text {
+			p {
+				@include text(left, white, 'Bitter', 0.9em, 0.1em);
+				width: 190px;
+				margin: 0em 0em 0em 1.25em;
+				@include mQ(900px) {
+					font-size: 0.8em;
+				}
+			}
+			.quote {
+				font-weight: bold;
+				margin-top: 0.5em;
+			}
+		}
+	}
+	.gator {
+		margin-left: 4em;
+		@include mQ(1200px) {
+			margin-left: 0em;
+		}
+	}
+	.gulliver {
+		.big-circle {
+			.small-circle {
+				background-color: #bb580f;
+			}
+		}
+	}
+	.striky {
+		.big-circle {
+			.small-circle {
+				background-color: #f0938d;
+			}
+		}
+	}
 }
 
-.gallery-page{
-    position: relative;
-    @include pageSize();
-    background-color: rgba(42,34,23,0.6);
-    overflow: hidden;
-    .gallery-title {
-        @include title;
-        opacity: 0;
-    }
-    .gallery-box {
-        width: 360px;
-        height: 275px;
-        background-color: white;
-        @include flex(flex, center, center);
-        .gallery-picture {
-            box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.6);
-            width: 90%;
-        }
-    }
-    .g-t {
-        display: inline-block;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        .gallery-middle {
-            @include flex(flex, center, center);
-            margin: 2em 0em;
-            div {
-                width: 440px;
-                height: 1px;
-                background-color: white;
-            }
-            .middle-icon {
-                margin: 0em 4em;
-            }
-        }
-        .gallery-top, .gallery-bottom {
-            @include flex(flex, center, center);
-            .gallery-2, .gallery-5 {
-                margin: 0em 5em;
-            }
-        }
-        .gallery-top {
-            margin-top: 6.5em;
-            .gallery-1 {
-                position: relative;
-                .gallery-villager-1 {
-                    position: absolute;
-                    top: -28%;
-                    right: -14%;
-                }
-            }
-            .gallery-2 {
-                position: relative;
-                .gallery-villager-2 {
-                    position: absolute;
-                    bottom: -5%;
-                    right: -18%;
-                }
-            }
-            .gallery-3 {
-                position: relative;
-                .gallery-villager-3 {
-                    position: absolute;
-                    top: -28%;
-                    right: -14%;
-                }
-            }
-        }
-        .gallery-bottom {
-            .gallery-4 {
-                position: relative;
-                .gallery-villager-4 {
-                    position: absolute;
-                    top: -28%;
-                    left: -15%;
-                }
-            }
-            .gallery-5 {
-                position: relative;
-                .gallery-villager-5 {
-                    position: absolute;
-                    bottom: -5%;
-                    left: -18%;
-                }
-            }
-            .gallery-6 {
-                position: relative;
-                .gallery-villager-6 {
-                    position: absolute;
-                    top: -25%;
-                    right: -17%;
-                }
-            }
-        }
-    }
+.gallery-page {
+	position: relative;
+	@include pageSize();
+	background-color: rgba(42, 34, 23, 0.6);
+	overflow: hidden;
+	@include mQ(1200px) {
+		height: auto;
+		padding: 3.5em 0em 7.5em 0em;
+	}
+	@include mQ(450px) {
+		padding: 3.5em 1.25em 7.5em 1.25em;
+	}
+	.gallery-title {
+		@include title;
+		opacity: 0;
+		@include mQ(600px) {
+			opacity: 1;
+		}
+	}
+	.gallery-box {
+		width: 300px;
+		height: 215px;
+		background-color: white;
+		padding: 1em;
+		@include flex(flex, center, center);
+		.gallery-picture {
+			box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.6);
+			width: 100%;
+			height: 100%;
+		}
+		@include mQ(900px) {
+			width: 260px;
+			height: 190px;
+			padding: 0.9em;
+		}
+		@include mQ(450px) {
+			width: 240px;
+			height: 170px;
+			padding: 0.75em;
+		}
+	}
+	.g-t {
+		@include flex(flex, center, center);
+		height: 70%;
+		flex-direction: column;
+		width: 100%;
+		.gallery-middle {
+			@include flex(flex, center, center);
+			margin: 3em 0em;
+			@include mQ(900px) {
+				margin: 2.5em;
+			}
+			div {
+				width: 440px;
+				height: 1px;
+				background-color: white;
+				@include mQ(900px) {
+					width: 220px;
+				}
+				@include mQ(450px) {
+					width: 130px;
+				}
+			}
+			.middle-icon {
+				margin: 0em 4em;
+				@include mQ(900px) {
+					width: 24px;
+					margin: 0em 2em;
+				}
+				@include mQ(450px) {
+					width: 20px;
+					margin: 0em 1.5em;
+				}
+			}
+		}
+		.gallery-top,
+		.gallery-bottom {
+			@include flex(flex, center, center);
+			@include mQ(1200px) {
+				flex-direction: column;
+			}
+			.gallery-2,
+			.gallery-5 {
+				margin: 0em 3.5em;
+				@include mQ(1200px) {
+					margin: 4em 0em;
+				}
+				@include mQ(900px) {
+					margin: 3em;
+				}
+			}
+		}
+		.gallery-villager-top,
+		.gallery-villager-bot {
+			width: 22%;
+			height: 40%;
+			@include mQ(900px) {
+				width: 20%;
+				height: 33%;
+			}
+		}
+		.gallery-top {
+			margin-top: 6.5em;
+			.gallery-1 {
+				position: relative;
+				.gallery-villager-1 {
+					position: absolute;
+					top: -28%;
+					right: -10%;
+					width: 20%;
+					@include mQ(900px) {
+						width: 18%;
+						top: -23%;
+						right: -8%;
+					}
+				}
+			}
+			.gallery-2 {
+				position: relative;
+				.gallery-villager-2 {
+					position: absolute;
+					bottom: -5%;
+					right: -16%;
+					width: 20%;
+					@include mQ(1200px) {
+						left: -13%;
+						top: -23%;
+					}
+					@include mQ(900px) {
+						left: -11%;
+						top: -20%;
+					}
+				}
+			}
+			.gallery-3 {
+				position: relative;
+				.gallery-villager-3 {
+					position: absolute;
+					top: -28%;
+					right: -8%;
+					width: 25%;
+					height: 45%;
+					@include mQ(900px) {
+						width: 22%;
+						height: 42%;
+						top: -24%;
+						right: -6%;
+					}
+				}
+			}
+		}
+		.gallery-bottom {
+			.gallery-4 {
+				position: relative;
+				.gallery-villager-4 {
+					position: absolute;
+					top: -25%;
+					left: -10%;
+					@include mQ(1200px) {
+						left: auto;
+						right: -12%;
+					}
+				}
+			}
+			.gallery-5 {
+				position: relative;
+				.gallery-villager-5 {
+					position: absolute;
+					bottom: -3%;
+					left: -14%;
+					@include mQ(900px) {
+						width: 22%;
+						bottom: -3%;
+						left: -14%;
+					}
+				}
+			}
+			.gallery-6 {
+				position: relative;
+				.gallery-villager-6 {
+					position: absolute;
+					top: -24%;
+					right: -12%;
+					@include mQ(900px) {
+						height: 35%;
+						top: -20%;
+						right: -10%;
+					}
+				}
+			}
+		}
+	}
 }
 
-.contact-page{
-    @include pageSize();
-    background-color: rgba(42,34,23,0.6);
-    position: relative;
-    overflow: hidden;
-    .outer-box {
-        @include flex(flex, center, center);
-        height: 650px;
-        width: 850px;
-        background-color: white;
-        position: absolute;
-        top: 39%;
-        left: 50%;
-        transform: translate(-50%, -40%);
-        .inner-box {
-            height: 600px;
-            width: 800px;
-            background-color: #849A69;
-            text-align: center;
-            box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.6);
-            position: relative;
-            .dodo-left {
-                position: absolute;
-                right: 2.5%;
-                top: 2%;
-                transform: translate(-2.5%, -2%);
-            }
-            .dodo-right {
-                position: absolute;
-                left: 2.5%;
-                transform: translate(-2.5%, -0%);
-            }
-            .flowers {
-                position: absolute;
-                bottom: -8%;
-                right: -15%;
-            }
-            h1 {
-                @include text(center, white,  'Bitter', 3em, 0em);
-                margin: 0.4em 0em;
-                text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
-            }
-            p {
-                @include text(center, white,  'Bitter', 1.2em, 0em);
-                width: 70%;
-                margin: auto;
-            }
-            .contact-form {
-                @include flex(flex, none, none);
-                flex-direction: column;
-                @include text(left, white,  'Bitter', 1.4em, 0em);
-                width: 85%;
-                margin: auto;
-                margin-top: 1.5em;
-                label {
-                    margin-bottom: 0.8em;
-                    font-weight: bold;
-                }
-                input {
-                    outline: none;
-                    border: none;
-                    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
-                    padding: 0.5em;
-                    font-size: 0.6em;
-                    margin-bottom: 1em;
-                }
-                button {
-                    border: none;
-                    outline: none;
-                    border-radius: 30px;
-                    width: 30%;
-                    @include text(center, black,  'Bitter', 0.85em, 0em);
-                    padding: 0.5em 0.5em;
-                    font-weight: bold;
-                    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
-                    margin: auto;
-                    margin-top: 0.7em;
-                    letter-spacing: 0.05em;
-                    a {
-                        color: black;
-                        text-decoration: none;
-                        &:hover {
-                            color: #849A69;
-                        }
-                    }
-                    a:active {
-                        color: #849A69;
-                    }
-                    a[tabindex]:focus {
-                        color:#849A69;
-                        outline: none;
-                    }
-                }
-            }
-        }
-    }
-    .footer {
-        @include flex(flex, center, center);
-        @include text(center, white,  'Bitter', 1.5em, 0em);
-        background-color: #24292B;
-        height: 100px;
-        position: absolute;
-        bottom: 0%;
-        width: 100%;
-        .footer-socials {
-            position: absolute;
-            right: 5%;
-            a {
-                margin-right: 1em;
-            }
-        }
-    }
+.contact-page {
+	@include pageSize();
+	background-color: rgba(42, 34, 23, 0.6);
+	position: relative;
+	overflow: hidden;
+	@include flex(flex, center, center);
+	.outer-box {
+		@include flex(flex, center, center);
+		height: 630px;
+		width: 800px;
+		background-color: white;
+		padding: 1.5em;
+		@include mQ(1200px) {
+			width: 600px;
+			height: 550px;
+			padding: 1em;
+		}
+		@include mQ(900px) {
+			width: 500px;
+			height: 500px;
+			padding: 0.8em;
+		}
+		@include mQ(600px) {
+			width: 400px;
+			padding: 0.8em;
+		}
+		@include mQ(450px) {
+			width: 310px;
+			height: 450px;
+			padding: 0.75em;
+			margin-bottom: 3em;
+		}
+		.inner-box {
+			height: 100%;
+			width: 100%;
+			background-color: #849a69;
+			text-align: center;
+			box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.6);
+			position: relative;
+			padding: 2em;
+			@include mQ(1200px) {
+				padding: 1em;
+			}
+			.dodo-left {
+				position: absolute;
+				right: 2.5%;
+				top: 2%;
+				transform: translate(-2.5%, -2%);
+				@include mQ(1200px) {
+					width: 11%;
+				}
+			}
+			.dodo-right {
+				position: absolute;
+				left: 2.5%;
+				top: 0%;
+				transform: translate(-2.5%, 0%);
+				@include mQ(1200px) {
+					width: 13%;
+				}
+			}
+			.flowers {
+				position: absolute;
+				bottom: -8%;
+				right: -15%;
+				@include mQ(1200px) {
+					width: 30%;
+				}
+				@include mQ(900px) {
+					width: 25%;
+					bottom: -6%;
+					right: -9%;
+				}
+				@include mQ(450px) {
+					bottom: -3%;
+					right: -9%;
+				}
+			}
+			h1 {
+				@include text(center, white, 'Bitter', 2.5em, 0em);
+				margin-bottom: 0.4em;
+				text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+				@include mQ(1200px) {
+					font-size: 2em;
+				}
+				@include mQ(900px) {
+					font-size: 1.8em;
+				}
+				@include mQ(600px) {
+					font-size: 1.5em;
+				}
+				@include mQ(450px) {
+					font-size: 1.15em;
+				}
+			}
+			p {
+				@include text(center, white, 'Bitter', 1em, 0em);
+				width: 70%;
+				margin: auto;
+				@include mQ(1200px) {
+					width: 65%;
+				}
+				@include mQ(900px) {
+					font-size: 0.9em;
+				}
+				@include mQ(600px) {
+					font-size: 0.85em;
+					width: 80%;
+				}
+				@include mQ(450px) {
+					font-size: 0.75em;
+				}
+			}
+			.contact-form {
+				@include flex(flex, none, none);
+				flex-direction: column;
+				@include text(left, white, 'Bitter', 1.3em, 0em);
+				width: 85%;
+				margin: auto;
+				margin-top: 2.5em;
+				@include mQ(1200px) {
+					margin-top: 1.5em;
+				}
+				@include mQ(900px) {
+					margin-bottom: 1em;
+				}
+				@include mQ(450px) {
+					margin-top: 1em;
+				}
+				label {
+					margin-bottom: 0.8em;
+					font-weight: bold;
+					@include mQ(1200px) {
+						font-size: 0.9em;
+						margin-bottom: 0.5em;
+					}
+					@include mQ(900px) {
+						font-size: 0.8em;
+					}
+				}
+				input {
+					outline: none;
+					border: none;
+					box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+					padding: 0.5em;
+					font-size: 0.6em;
+					margin-bottom: 1em;
+					@include mQ(450px) {
+						font-size: 0.5em;
+					}
+				}
+				button {
+					border: none;
+					outline: none;
+					border-radius: 30px;
+					width: 30%;
+					@include text(center, black, 'Bitter', 0.85em, 0em);
+					padding: 0.5em 0.5em;
+					font-weight: bold;
+					box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+					margin: auto;
+					margin-top: 0.75em;
+					letter-spacing: 0.05em;
+					cursor: pointer;
+					&:hover {
+						color: #849a69;
+					}
+					@include mQ(1200px) {
+						width: auto;
+						margin-top: 0.75em;
+						padding: 0.6em 1.5em;
+					}
+					@include mQ(900px) {
+						font-size: 0.75em;
+						padding: 0.5em 1.25em;
+						margin-top: 0.5em;
+					}
+					@include mQ(600px) {
+						margin-top: 1em;
+					}
+					@include mQ(450px) {
+						font-size: 0.65em;
+					}
+				}
+			}
+		}
+	}
+	.footer {
+		@include flex(flex, center, center);
+		@include text(center, white, 'Bitter', 1.2em, 0em);
+		background-color: #24292b;
+		height: 70px;
+		position: absolute;
+		bottom: 0%;
+		width: 100%;
+		@include mQ(1200px) {
+			font-size: 1em;
+		}
+		@include mQ(900px) {
+			height: 70px;
+			font-size: 0.7em;
+			flex-direction: column;
+		}
+		.footer-socials {
+			position: absolute;
+			right: 5%;
+			@include mQ(900px) {
+				right: 2%;
+				position: static;
+				margin-bottom: 0.75em;
+			}
+			a {
+				margin-right: 1.25em;
+				img {
+					@include mQ(1200px) {
+						width: 15%;
+					}
+				}
+				&:last-child {
+					margin-right: 0em;
+				}
+			}
+		}
+	}
 }
-
 
 // Animations
 @keyframes line-anim {
-    to {
-        stroke-dashoffset: 0;
-    }
+	to {
+		stroke-dashoffset: 0;
+	}
 }
 
 @keyframes fill {
-    to {
-        fill: white;
-    }
+	to {
+		fill: white;
+	}
 }
 
-@keyframes appearUp{
-    to {
-        opacity: 1;
-        top: 42%;
-    }
+@keyframes appearUp {
+	to {
+		opacity: 1;
+		top: 42%;
+	}
 }
 
 @keyframes opacity {
-    to {
-        opacity: 1;
-    }
+	to {
+		opacity: 1;
+	}
 }
