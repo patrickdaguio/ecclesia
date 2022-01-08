@@ -153,7 +153,6 @@ sections.forEach(section => {
 				start: 'top bottom-=1',
 				end: 'bottom top+=1',
 				scrub: 1,
-				markers: true,
 				onEnter: () => goToSection(section, intoAnim),
 				onEnterBack: () => goToSection(section)
 			});
